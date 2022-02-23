@@ -8,7 +8,7 @@ import { pricePerItem } from "../../constants";
 import { useOrderDetails } from "../../contexts/OrderDetails";
 
 interface Props {
-  optionType: string;
+  optionType: "scoops" | "toppings";
 }
 
 interface ItemsProps {
@@ -53,7 +53,9 @@ function Options({ optionType }: Props) {
     <>
       <h2>{title}</h2>
       <p>{pricePerItem[optionType]} each</p>
-      <p>{orderDetails.totals.get(optionType)}</p>
+      <p>
+        {title} total: {orderDetails.totals[optionType]}
+      </p>
       <Row>{optionItems}</Row>
     </>
   );

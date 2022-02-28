@@ -6,6 +6,7 @@ import ScoopOptions from "../ScoopOptions";
 import ToppingOptions from "../ToppingOptions";
 import { pricePerItem } from "../../constants";
 import { useOrderDetails } from "../../contexts/OrderDetails";
+import { formatCurrency } from "../../utils";
 
 interface Props {
   optionType: "scoops" | "toppings";
@@ -52,7 +53,7 @@ function Options({ optionType }: Props) {
   return (
     <>
       <h2>{title}</h2>
-      <p>{pricePerItem[optionType]} each</p>
+      <p>{formatCurrency(pricePerItem[optionType])} each</p>
       <p>
         {title} total: {orderDetails.totals[optionType]}
       </p>

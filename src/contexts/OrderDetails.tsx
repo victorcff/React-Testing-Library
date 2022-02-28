@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { pricePerItem } from "../constants";
+import { formatCurrency } from "../utils";
 
 type Totals = {
   scoops: number;
@@ -14,21 +15,20 @@ type UpdateItemCount = (
   optionType: string
 ) => void;
 
+type ResetOrder = () => void;
+
 type ContextValue = [
-  { scoops: IOptionCounts; toppings: IOptionCounts; totals: Totals },
-  UpdateItemCount
+  {
+    scoops: Map<string, number>;
+    toppings: Map<string, number>;
+    totals: Totals;
+  },
+  UpdateItemCount,
+  ResetOrder
 ];
 
 interface IOptionCounts {
   [index: string]: Map<string, number>;
-}
-
-function formatCurrency(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format(amount);
 }
 
 const OrderDetails = createContext<ContextValue | null>(null);
@@ -90,7 +90,14 @@ function OrderDetailsProvider(props: any) {
       setOptionCounts(newOptionCounts);
     }
 
-    return [{ ...optionCounts, totals }, updateItemCount];
+    function resetOrder() {
+      setOptionCounts({
+        scoops: new Map<string, number>(),
+        toppings: new Map<string, number>(),
+      });
+    }
+
+    return [{ ...optionCounts, totals }, updateItemCount, resetOrder];
   }, [optionCounts, totals]);
 
   return <OrderDetails.Provider value={value} {...props} />;

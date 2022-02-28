@@ -1,11 +1,20 @@
-import { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Form, Button, Popover, OverlayTrigger } from "react-bootstrap";
 
-function SummaryForm() {
+interface ISummaryForm {
+  setOrderPhase: Dispatch<SetStateAction<string>>;
+}
+
+function SummaryForm({ setOrderPhase }: ISummaryForm) {
   const [tcChecked, setTcChecked] = useState(false);
 
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setOrderPhase("completed");
+  }
+
   const popover = (
-    <Popover id="popover-basic">
+    <Popover id="termsandconditions-popover">
       <Popover.Body>No ice cream will actually be delivered</Popover.Body>
     </Popover>
   );
@@ -20,7 +29,7 @@ function SummaryForm() {
   );
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="terms-and-conditions">
         <Form.Check
           type="checkbox"

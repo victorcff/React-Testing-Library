@@ -79,37 +79,37 @@ test("order phases for happy path", async () => {
 
   userEvent.click(confirmOrderButton);
 
-  // // Confirm order number on confirmation page
-  // const thankYouHeader = await screen.findByRole("heading", {
-  //   name: /thank you/i,
-  // });
-  // expect(thankYouHeader).toBeInTheDocument();
+  // Confirm order number on confirmation page
+  const thankYouHeader = await screen.findByRole("heading", {
+    name: /thank you/i,
+  });
+  expect(thankYouHeader).toBeInTheDocument();
 
   const orderNumber = await screen.findByText(/order number/i);
   expect(orderNumber).toBeInTheDocument();
 
-  // // Click "new order" button on confirmation page
-  // const newOrderButton = screen.getByRole("button", {
-  //   name: /new order/i,
-  // });
-  // userEvent.click(newOrderButton);
+  // Click "new order" button on confirmation page
+  const newOrderButton = screen.getByRole("button", {
+    name: /new order/i,
+  });
+  userEvent.click(newOrderButton);
 
-  // // Check that scoops and toppings have been reset
-  // const scoopsTotal = screen.getByText("Scoops total: $0.00");
-  // const toppingsTotal = screen.getByText("Toppings total: $0.00");
-  // expect(scoopsTotal).toBeInTheDocument();
-  // expect(toppingsTotal).toBeInTheDocument();
+  // Check that scoops and toppings have been reset
+  const scoopsTotal = screen.getByText("Scoops total: $0.00");
+  const toppingsTotal = screen.getByText("Toppings total: $0.00");
+  expect(scoopsTotal).toBeInTheDocument();
+  expect(toppingsTotal).toBeInTheDocument();
 
-  // await screen.findByRole("spinbutton", {
-  //   name: "Vanilla",
-  // });
-  // await screen.findByRole("spinbutton", {
-  //   name: "Chocolate",
-  // });
-  // await screen.findByRole("checkbox", {
-  //   name: "Cherries",
-  // });
-  // await screen.findByRole("checkbox", {
-  //   name: "Hot Fudge",
-  // });
+  await screen.findByRole("spinbutton", {
+    name: "Vanilla",
+  });
+  await screen.findByRole("spinbutton", {
+    name: "Chocolate",
+  });
+  await screen.findByRole("checkbox", {
+    name: "Cherries",
+  });
+  await screen.findByRole("checkbox", {
+    name: "Hot Fudge",
+  });
 });
